@@ -26,40 +26,20 @@ struct MenuView: View {
                 }
             }
             .navigationBarTitle("Memorize!")
-            .toolbar {
-                ToolbarItemGroup(placement: .bottomBar) {
-                    HStack {
-                        Button {
-                            print("leaderboard")
-                        } label: {
-                            Image("leaderboard-icon")
-                        }
-                        Spacer()
-                        ZStack {
-                            Button {
-                                print("leaderboard")
-                            } label: {
-                                Image(systemName: "questionmark.circle")
-                            }
-                            Text("Coming Soon")
-                                .fontWeight(.bold)
-                                .rotationEffect(Angle.degrees(10))
-                                .font(.title2)
-                                .foregroundColor(.white)
-                                .shadow(radius: 0.8)
-                        }
+            .navigationBarItems(
+                leading:
+                    Button {
+                        print("leaderboard")
+                    } label: {
+                        Image("leaderboard-icon")
+                    },
+                trailing:
+                    Button {
+                        print("leaderboard")
+                    } label: {
+                    Image(systemName: "questionmark.circle")
                     }
-                }
-            }
-            // TODO: Replace Enum and add functionality for Edit and Add Themes Button
-            //            .navigationBarItems(
-            //                leading:
-            //                    Button(action: { }) {
-            //                        Image(systemName: "plus")
-            //                            .frame(width: 50, height: 50)
-            //                    },
-            //                trailing: EditButton().frame(width: 50, height: 50)
-            //            )
+            )
         }
     }
 }

@@ -9,9 +9,16 @@ import UIKit
 import GameKit
 
 class ShortViewController: UIViewController, GKLocalPlayerListener {
-    
+        
     override func viewDidLoad() {
         super.viewDidLoad()
+        logInToGameCenter()
+    }
+    @IBAction func logIn(_ sender: Any) {
+        logInToGameCenter()
+    }
+    
+    func logInToGameCenter() {
         GKLocalPlayer.local.authenticateHandler = { [self] gcAuthVC, error in
             if GKLocalPlayer.local.isAuthenticated {
                 GKLocalPlayer.local.register(self)
