@@ -32,6 +32,9 @@ struct LeaderboardView: View {
             .navigationBarTitle("Leaderboard")
         }
         .padding(.top)
+        .refreshable {
+            self.viewModel.fetchLeaderboard()
+        }
         .onAppear {
             self.viewModel.fetchLeaderboard()
         }
