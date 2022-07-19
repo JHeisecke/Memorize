@@ -33,14 +33,24 @@ struct MemoryGameView: View {
         .toolbar {
             ToolbarItem(placement: .navigationBarLeading) {
                 Button {
-                    viewModel.restart()
-                    presentationMode.wrappedValue.dismiss()
+                    if viewModel.allCardsMatched {
+                        alertView(completion: {
+                            finishGame()
+                        })
+                    } else {
+                        finishGame()
+                    }
                 } label: {
                     Image(systemName: "chevron.left")
                 }
             }
         }
         .padding()
+    }
+    
+    func finishGame() {
+        viewModel.restart()
+        presentationMode.wrappedValue.dismiss()
     }
     
     var navigationBar: some View {
@@ -151,7 +161,7 @@ struct MemoryGameView: View {
                 .modifier(ParticlesModifier(delay: 0.9))
                 .offset(x: -50, y : 0)
             VStack {
-                Text("Congratulations!")
+                Text("Won")
                     .font(.largeTitle)
                 HStack {
                     Text("Score")
@@ -172,6 +182,38 @@ struct MemoryGameView: View {
                 .modifier(ParticlesModifier())
                 .offset(x: 30, y : 40)
         }
+    }
+    
+    func alertView(completion: @escaping () -> ()) {
+        let alert = UIAlertController(
+            title: String(localized: "Won"),
+            message: String(localized: "Won.Description"),
+            preferredStyle: .alert
+        )
+        alert.addTextField { textField in
+            textField.placeholder = "Alias"
+        }
+        let accept = UIAlertAction(
+            title: String(localized: "accept"),
+            style: .default
+        ) { _ in
+            guard let text = alert.textFields?[0].text else {
+                completion()
+                return
+            }
+            viewModel.saveScore(with: text)
+            completion()
+        }
+        let cancel = UIAlertAction(
+            title: String(localized: "cancel"),
+            style: .destructive
+        ) { _ in
+            completion()
+        }
+        alert.addAction(cancel)
+        alert.addAction(accept)
+        
+        UIApplication.shared.windows.first?.rootViewController?.present(alert, animated: true, completion: { })
     }
 }
 

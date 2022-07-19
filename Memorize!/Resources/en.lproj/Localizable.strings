@@ -16,4 +16,9 @@
 "Objects" = "Objects";
 "Flags" = "Flags";
 "Score" = "Score";
-"Congratulations!" = "Congratulations!";
+"Won" = "You Won!";
+"Won.Description" = "Enter an alias to save your score in the leaderboard";
+"No scores yet! be the first one." = "No scores yet! be the first one.";
+"Leaderboard" = "Leaderboard";
+"accept" = "Accept";
+"cancel" = "Cancel";
