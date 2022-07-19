@@ -33,16 +33,24 @@ struct MemoryGameView: View {
         .toolbar {
             ToolbarItem(placement: .navigationBarLeading) {
                 Button {
-                    alertView(completion: {
-                        viewModel.restart()
-                        presentationMode.wrappedValue.dismiss()
-                    })
+                    if viewModel.allCardsMatched {
+                        alertView(completion: {
+                            finishGame()
+                        })
+                    } else {
+                        finishGame()
+                    }
                 } label: {
                     Image(systemName: "chevron.left")
                 }
             }
         }
         .padding()
+    }
+    
+    func finishGame() {
+        viewModel.restart()
+        presentationMode.wrappedValue.dismiss()
     }
     
     var navigationBar: some View {
@@ -189,7 +197,11 @@ struct MemoryGameView: View {
             title: "Accept",
             style: .default
         ) { _ in
-            viewModel.saveScore()
+            guard let text = alert.textFields?[0].text else {
+                completion()
+                return
+            }
+            viewModel.saveScore(with: text)
             completion()
         }
         let cancel = UIAlertAction(

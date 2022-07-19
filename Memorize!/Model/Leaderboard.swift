@@ -12,6 +12,7 @@ struct Leaderboard {
 }
 
 struct Score {
+    var id: String
     var username: String
     var score: Double
     var isHighScore: Bool

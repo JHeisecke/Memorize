@@ -6,11 +6,14 @@
 //
 
 import Foundation
+import SwiftUI
 
 class MemoryGameViewModel: ObservableObject {
     
     @Published private var model: MemoryGame<String>
     var theme: DeckThemes
+    
+    private let leaderBoardRepository = LeaderboardRepository()
     
     init(theme: DeckThemes) {
         model = MemoryGameViewModel.createMemoryGame(with: theme)
@@ -58,7 +61,7 @@ class MemoryGameViewModel: ObservableObject {
         model = MemoryGameViewModel.createMemoryGame(with: theme)
     }
     
-    func saveScore() {
-        print("save")
+    func saveScore(with username: String) {
+        leaderBoardRepository.save(score: Score(id: Date().ISO8601Format(),username: username, score: model.score, isHighScore: false, theme: name))
     }
 }
