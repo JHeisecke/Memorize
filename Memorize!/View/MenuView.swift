@@ -16,7 +16,7 @@ struct MenuView: View {
                                     MemoryGameView(viewModel: MemoryGameViewModel(theme: theme)))
                     {
                         VStack(alignment: .leading, spacing: 5) {
-                            Text(theme.name)
+                            Text(theme.localizedName)
                                 .font(.headline)
                                 .foregroundColor(Color(hex: theme.color))
                             Text(theme.deck.map({$0}).joined(separator: ""))

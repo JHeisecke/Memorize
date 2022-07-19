@@ -49,7 +49,7 @@ enum DeckThemes {
         }
     }
     
-    var name: String {
+    var localizedName: String {
         switch self {
         case .vehicles:
             return String(localized: "Vehicles")
@@ -65,6 +65,23 @@ enum DeckThemes {
             return String(localized: "Objects")
         }
     }
+    var name: String {
+        switch self {
+        case .vehicles:
+            return "Vehicles"
+        case .animals:
+            return "Animals"
+        case .foods:
+            return "Foods"
+        case .people:
+            return "People"
+        case .flags:
+            return "Flags"
+        case .objects:
+            return "Objects"
+        }
+    }
+    
     
     var numberOfPairs: Int {
         switch self {

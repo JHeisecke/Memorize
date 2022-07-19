@@ -35,7 +35,7 @@ class MemoryGameViewModel: ObservableObject {
     }
     
     var name: String {
-        return model.name
+        return model.localizedName
     }
     
     var color: Int {
@@ -62,6 +62,6 @@ class MemoryGameViewModel: ObservableObject {
     }
     
     func saveScore(with username: String) {
-        leaderBoardRepository.save(score: Score(id: Date().ISO8601Format(),username: username, score: model.score, isHighScore: false, theme: name))
+        leaderBoardRepository.save(score: Score(username: username, score: model.score, isHighScore: false, theme: model.name))
     }
 }

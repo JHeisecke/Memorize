@@ -6,13 +6,12 @@
 //
 
 import Foundation
+import FirebaseFirestoreSwift
 
-struct Leaderboard {
-    var scores: [Score]
-}
+typealias Leaderboard = [Score]
 
-struct Score {
-    var id: String
+struct Score: Codable, Hashable {
+    @DocumentID var id: String?
     var username: String
     var score: Double
     var isHighScore: Bool

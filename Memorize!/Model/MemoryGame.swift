@@ -12,6 +12,7 @@ typealias Card = MemoryGame<String>.MemoryCard
 struct MemoryGame<CardContent> where CardContent: Equatable {
     private(set) var cards: [MemoryCard]
     var matchedCards = 0
+    var localizedName: String
     var name: String
     var color: Int
     var score: Double
@@ -22,6 +23,7 @@ struct MemoryGame<CardContent> where CardContent: Equatable {
     }
     
     init(theme: DeckThemes, createCardContent: (Int, DeckThemes) -> CardContent) {
+        localizedName = theme.localizedName
         name = theme.name
         color = theme.color
         cards = [MemoryCard]()

@@ -10,7 +10,7 @@ import FirebaseFirestore
 
 protocol LeaderboardRepositoryProtocol {
     func save(score: Score)
-    func fetch()
+    func fetch(completion: @escaping (Leaderboard) -> ())
 }
 
 struct LeaderboardRepository: LeaderboardRepositoryProtocol {
@@ -21,7 +21,6 @@ struct LeaderboardRepository: LeaderboardRepositoryProtocol {
         database
             .collection("leaderboard")
             .addDocument(data: [
-                            "id": score.id,
                             "isHighScore": false,
                             "score": score.score,
                             "theme": score.theme,
@@ -35,13 +34,22 @@ struct LeaderboardRepository: LeaderboardRepositoryProtocol {
                 }
     }
     
-    func fetch() {
+    func fetch(completion: @escaping (Leaderboard) -> ()) {
         database.collection("leaderboard").getDocuments { snapshot, error in
+            var leaderboard = Leaderboard()
             guard let data = snapshot?.documents, error == nil else {
                 return
             }
-            
-            print(data)
+            do {
+                try data.forEach { document in
+                    let score = try document.data(as: Score.self)
+                    leaderboard.append(score)
+                }
+            }
+            catch {
+                print(error)
+            }
+            completion(leaderboard)
         }
     }
 }

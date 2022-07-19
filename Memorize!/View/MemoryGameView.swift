@@ -161,7 +161,7 @@ struct MemoryGameView: View {
                 .modifier(ParticlesModifier(delay: 0.9))
                 .offset(x: -50, y : 0)
             VStack {
-                Text("You Won!")
+                Text("Won")
                     .font(.largeTitle)
                 HStack {
                     Text("Score")
@@ -186,15 +186,15 @@ struct MemoryGameView: View {
     
     func alertView(completion: @escaping () -> ()) {
         let alert = UIAlertController(
-            title: "Congratulations!",
-            message: "Enter an alias to save your score in the leaderboard",
+            title: String(localized: "Won"),
+            message: String(localized: "Won.Description"),
             preferredStyle: .alert
         )
         alert.addTextField { textField in
             textField.placeholder = "Alias"
         }
         let accept = UIAlertAction(
-            title: "Accept",
+            title: String(localized: "accept"),
             style: .default
         ) { _ in
             guard let text = alert.textFields?[0].text else {
@@ -205,7 +205,7 @@ struct MemoryGameView: View {
             completion()
         }
         let cancel = UIAlertAction(
-            title: "Cancel",
+            title: String(localized: "cancel"),
             style: .destructive
         ) { _ in
             completion()
