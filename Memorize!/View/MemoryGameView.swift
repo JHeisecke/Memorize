@@ -33,8 +33,10 @@ struct MemoryGameView: View {
         .toolbar {
             ToolbarItem(placement: .navigationBarLeading) {
                 Button {
-                    viewModel.restart()
-                    presentationMode.wrappedValue.dismiss()
+                    alertView(completion: {
+                        viewModel.restart()
+                        presentationMode.wrappedValue.dismiss()
+                    })
                 } label: {
                     Image(systemName: "chevron.left")
                 }
@@ -151,7 +153,7 @@ struct MemoryGameView: View {
                 .modifier(ParticlesModifier(delay: 0.9))
                 .offset(x: -50, y : 0)
             VStack {
-                Text("Congratulations!")
+                Text("You Won!")
                     .font(.largeTitle)
                 HStack {
                     Text("Score")
@@ -172,6 +174,34 @@ struct MemoryGameView: View {
                 .modifier(ParticlesModifier())
                 .offset(x: 30, y : 40)
         }
+    }
+    
+    func alertView(completion: @escaping () -> ()) {
+        let alert = UIAlertController(
+            title: "Congratulations!",
+            message: "Enter an alias to save your score in the leaderboard",
+            preferredStyle: .alert
+        )
+        alert.addTextField { textField in
+            textField.placeholder = "Alias"
+        }
+        let accept = UIAlertAction(
+            title: "Accept",
+            style: .default
+        ) { _ in
+            viewModel.saveScore()
+            completion()
+        }
+        let cancel = UIAlertAction(
+            title: "Cancel",
+            style: .destructive
+        ) { _ in
+            completion()
+        }
+        alert.addAction(cancel)
+        alert.addAction(accept)
+        
+        UIApplication.shared.windows.first?.rootViewController?.present(alert, animated: true, completion: { })
     }
 }
 

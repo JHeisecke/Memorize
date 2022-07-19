@@ -57,4 +57,8 @@ class MemoryGameViewModel: ObservableObject {
         model.color = 0
         model = MemoryGameViewModel.createMemoryGame(with: theme)
     }
+    
+    func saveScore() {
+        print("save")
+    }
 }

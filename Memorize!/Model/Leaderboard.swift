@@ -8,11 +8,6 @@
 import Foundation
 
 struct Leaderboard {
-    var themeScores: [ThemeScores]
-}
-
-struct ThemeScores {
-    var theme: String
     var scores: [Score]
 }
 
@@ -20,4 +15,5 @@ struct Score {
     var username: String
     var score: Double
     var isHighScore: Bool
+    var theme: String
 }
