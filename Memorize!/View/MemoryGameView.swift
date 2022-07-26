@@ -197,7 +197,7 @@ struct MemoryGameView: View {
             title: String(localized: "accept"),
             style: .default
         ) { _ in
-            guard let text = alert.textFields?[0].text else {
+            guard let text = alert.textFields?[0].text, !text.isEmpty, !text.trimWhiteSpaces().isEmpty else {
                 completion()
                 return
             }
