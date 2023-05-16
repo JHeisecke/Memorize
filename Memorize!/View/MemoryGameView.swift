@@ -10,15 +10,29 @@ import SwiftUI
 struct MemoryGameView: View {
     
     @Environment(\.presentationMode) var presentationMode: Binding<PresentationMode>
+    
     @ObservedObject var viewModel: MemoryGameViewModel
+    
     @State private var dealt = Set<Int>()
-    // a token which provides a namespace for the id's used in matchGeometryEffect
+    @State private var showAlert: Bool = false
+    /// a token which provides a namespace for the id's used in matchGeometryEffect
     @Namespace private var dealingNamespace
     
     var body: some View {
         ZStack(alignment: .bottom) {
             if viewModel.allCardsMatched {
-                confetti
+                ZStack {
+                    confetti
+                    if showAlert {
+                        CustomAlertView { alias in
+                            withAnimation {
+                                showAlert = false
+                            }
+                            viewModel.saveScore(with: alias)
+                            finishGame()
+                        }
+                    }
+                }
             } else {
                 VStack {
                         navigationBar
@@ -34,9 +48,9 @@ struct MemoryGameView: View {
             ToolbarItem(placement: .navigationBarLeading) {
                 Button {
                     if viewModel.allCardsMatched {
-                        alertView(completion: {
-                            finishGame()
-                        })
+                        withAnimation {
+                            showAlert = true
+                        }
                     } else {
                         finishGame()
                     }
@@ -46,11 +60,7 @@ struct MemoryGameView: View {
             }
         }
         .padding()
-    }
-    
-    func finishGame() {
-        viewModel.restart()
-        presentationMode.wrappedValue.dismiss()
+        .ignoresSafeArea(.keyboard)
     }
     
     var navigationBar: some View {
@@ -67,10 +77,6 @@ struct MemoryGameView: View {
             }
         }
         .padding(.horizontal)
-    }
-    
-    private func deal(_ card: Card) {
-        dealt.insert(card.id)
     }
     
     private func isUndealt(_ card: Card) -> Bool {
@@ -184,38 +190,22 @@ struct MemoryGameView: View {
         }
     }
     
-    func alertView(completion: @escaping () -> ()) {
-        let alert = UIAlertController(
-            title: String(localized: "Won"),
-            message: String(localized: "Won.Description"),
-            preferredStyle: .alert
-        )
-        alert.addTextField { textField in
-            textField.placeholder = "Alias"
-        }
-        let accept = UIAlertAction(
-            title: String(localized: "accept"),
-            style: .default
-        ) { _ in
-            guard let text = alert.textFields?[0].text, !text.isEmpty, !text.trimWhiteSpaces().isEmpty else {
-                completion()
-                return
-            }
-            viewModel.saveScore(with: text)
-            completion()
-        }
-        let cancel = UIAlertAction(
-            title: String(localized: "cancel"),
-            style: .destructive
-        ) { _ in
-            completion()
-        }
-        alert.addAction(cancel)
-        alert.addAction(accept)
-        
-        UIApplication.shared.windows.first?.rootViewController?.present(alert, animated: true, completion: { })
+}
+
+// MARK: - Actions
+
+private extension MemoryGameView {
+    func finishGame() {
+        viewModel.restart()
+        presentationMode.wrappedValue.dismiss()
+    }
+    
+    func deal(_ card: Card) {
+        dealt.insert(card.id)
     }
 }
+
+// MARK: - Preview
 
 struct ContentView_Previews: PreviewProvider {
     static var previews: some View {

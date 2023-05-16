@@ -14,6 +14,7 @@ enum DeckThemes {
     case people
     case flags
     case objects
+    case test
     
     var color: Int {
         switch self {
@@ -29,6 +30,8 @@ enum DeckThemes {
             return 0xcc0000
         case .objects:
             return 0xff6600
+        case .test:
+            return 0x27408b
         }
     }
     
@@ -46,6 +49,8 @@ enum DeckThemes {
             return ["📷", "📸", "📹", "🎥", "📽", "🎞", "📞", "☎️", "📟", "📠", "📺", "📻", "🎙", "📀", "💾", "⌚️", "📱"]
         case .flags:
             return ["🇦🇬", "🇦🇷", "🇦🇲", "🇦🇼", "🇦🇺", "🇦🇹", "🇦🇿", "🇧🇸", "🇧🇭", "🇧🇩", "🇧🇧", "🇪🇺", "🇪🇹", "🇸🇿", "🇪🇪", "🇪🇷", "🇬🇶", "🇸🇻", "🇪🇬", "🇪🇨", "🇩🇴"]
+        case .test:
+            return ["🪲", "🍏"]
         }
     }
     
@@ -63,6 +68,8 @@ enum DeckThemes {
             return String(localized: "Flags")
         case .objects:
             return String(localized: "Objects")
+        case .test:
+            return String("test")
         }
     }
     var name: String {
@@ -79,6 +86,8 @@ enum DeckThemes {
             return "Flags"
         case .objects:
             return "Objects"
+        case .test:
+            return "Test"
         }
     }
     
@@ -97,11 +106,17 @@ enum DeckThemes {
             return 12
         case .flags:
             return 21
+        case .test:
+            return 2
         }
     }
     
     static var allOptions: [DeckThemes] {
+        #if DEBUG
+        return [.animals, .vehicles, .people, .foods, .objects, .flags, .test]
+        #else
         return [.animals, .vehicles, .people, .foods, .objects, .flags]
+        #endif
     }
     
     static var randomOption: DeckThemes {

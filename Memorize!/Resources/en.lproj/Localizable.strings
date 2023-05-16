@@ -17,8 +17,9 @@
 "Flags" = "Flags";
 "Score" = "Score";
 "Won" = "You Won!";
-"Won.Description" = "Enter an alias to save your score in the leaderboard";
+"Won.Description" = "Enter an alias to save your score in the leaderboard.";
 "No scores yet! be the first one." = "No scores yet! be the first one.";
 "Leaderboard" = "Leaderboard";
-"accept" = "Accept";
+"save" = "Save";
 "cancel" = "Cancel";
+"Alias" = "Alias";
