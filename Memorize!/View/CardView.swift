@@ -26,7 +26,7 @@ struct CardView: View {
             ZStack {
                 Group {
                     if card.isConsumingBonusTime {
-                        Pie(startAngle: Angle(degrees: 0-90), endAngle: Angle(degrees: (1-animatedBonusRemaining)*360-90))
+                        Pie(startAngle: Angle(degrees: 270), endAngle: Angle(degrees: (1-animatedBonusRemaining)*360-90))
                             .onAppear {
                                 startBonusTimeAnimation()
                             }
@@ -52,5 +52,11 @@ struct CardView: View {
     
     private func fontSize(for size: CGSize) -> CGFloat {
         min(size.width, size.height) * 0.65
+    }
+}
+
+struct CardView_Previews: PreviewProvider {
+    static var previews: some View {
+        CardView(card: Card(id: 0, content: "🤣", isFaceUp: true), color: 0xccff33)
     }
 }
