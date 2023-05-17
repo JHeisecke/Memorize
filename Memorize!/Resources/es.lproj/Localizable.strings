@@ -18,7 +18,8 @@
 "Score" = "Puntaje";
 "Won" = "Enhorabuena!";
 "Won.Description" = "Ingresa un alias para mostrar tu puntaje en el Ranking!";
-"No scores yet! be the first one." = "Aún no hay puntajes para esta categoría";
+"No scores yet! be the first one." = "Aún no hay puntajes para esta categoría.";
 "Leaderboard" = "Ranking";
-"accept" = "Aceptar";
+"save" = "Guardar";
 "cancel" = "Cancelar";
+"Alias" = "Alias";

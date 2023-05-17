@@ -20,5 +20,6 @@
 "Won.Description" = "Ingresa un alias para mostrar tu puntaje en el Ranking!";
 "No scores yet! be the first one." = "Sin puntajes para esta categoría, podes ser el primero!";
 "Leaderboard" = "Ranking";
-"accept" = "Aceptar";
+"save" = "Guardar";
 "cancel" = "Cancelar";
+"Alias" = "Alias";

@@ -62,6 +62,7 @@ class MemoryGameViewModel: ObservableObject {
     }
     
     func saveScore(with username: String) {
+        guard !username.isEmpty else { return }
         leaderBoardRepository.save(score: Score(username: username, score: model.score, isHighScore: false, theme: model.name))
     }
 }
