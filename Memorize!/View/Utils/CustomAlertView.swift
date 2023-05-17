@@ -19,7 +19,7 @@ struct CustomAlertView: View {
     
     var body: some View {
         ZStack {
-            Color.black.opacity(0.3).ignoresSafeArea()
+            Color.gray.opacity(0.3).ignoresSafeArea(.all, edges: .all)
             VStack {
                 top
                     .padding(.horizontal)
@@ -27,11 +27,11 @@ struct CustomAlertView: View {
                 buttons
             }
             .frame(maxWidth: 300, maxHeight: 260)
-            .mask(
-                RoundedRectangle(cornerRadius: 30, style: .continuous)
-                    .foregroundColor(.white)
-            )
+            .background(.white)
+            .mask(RoundedRectangle(cornerRadius: 30, style: .continuous))
         }
+        .ignoresSafeArea(.all, edges: .all)
+        .ignoresSafeArea(.keyboard)
     }
     
     var top: some View {
@@ -46,8 +46,7 @@ struct CustomAlertView: View {
                 .fixedSize(horizontal: false, vertical: true)
                 .foregroundColor(.black)
             TextField("Alias", text: $text)
-                .textFieldStyle(RoundedBorderTextFieldStyle())
-                .background(.white)
+                .textFieldStyle(.roundedBorder)
             Spacer()
         }
     }

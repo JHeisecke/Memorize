@@ -19,27 +19,29 @@ struct MemoryGameView: View {
     @Namespace private var dealingNamespace
     
     var body: some View {
-        ZStack(alignment: .bottom) {
+        ZStack {
             if viewModel.allCardsMatched {
-                ZStack {
-                    confetti
-                    if showAlert {
-                        CustomAlertView { alias in
-                            withAnimation {
-                                showAlert = false
-                            }
-                            viewModel.saveScore(with: alias)
-                            finishGame()
+                confetti
+                if showAlert {
+                    CustomAlertView { alias in
+                        withAnimation {
+                            showAlert = false
                         }
+                        viewModel.saveScore(with: alias)
+                        finishGame()
                     }
+                    .ignoresSafeArea()
                 }
             } else {
-                VStack {
-                        navigationBar
-                        memoryGame
-                        bottomBar
+                ZStack(alignment: .bottom) {
+                    VStack {
+                            navigationBar
+                            memoryGame
+                            bottomBar
+                    }
+                    deckBody
                 }
-                deckBody
+                .padding()
             }
         }
         .navigationBarTitleDisplayMode(.inline)
@@ -59,8 +61,6 @@ struct MemoryGameView: View {
                 }
             }
         }
-        .padding()
-        .ignoresSafeArea(.keyboard)
     }
     
     var navigationBar: some View {
